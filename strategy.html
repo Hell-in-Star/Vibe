@@ -3,529 +3,654 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vibe · Стратегія Порятунку 2026</title>
+<title>Vibe · Стратегія 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0A0A0A; --c1:#111111; --c2:#181818;
-  --amber:#E8A030; --amber2:#C47820;
-  --green:#27AE60; --darkgreen:#1B5E3B;
-  --cream:#F0EDE8; --gray:#666; --border:#1E1E1E;
-  --red:#C0392B; --orange:#E67E22;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --v0: #060F09;
+  --v1: #0A1A0F;
+  --v2: #0F2218;
+  --v3: #142C1E;
+  --v4: #1B5E3B;
+  --v5: #27AE60;
+  --amber: #E8A030;
+  --amber2: #C47820;
+  --cream: #F0EDE8;
+  --muted: #6A8070;
+  --border: rgba(27,94,59,0.45);
+  --red: #C0392B;
+  --orange: #E67E22;
 }
-html{background:var(--bg)}
-body{background:var(--bg);color:var(--cream);font-family:'Inter',system-ui,sans-serif;max-width:520px;margin:0 auto;min-height:100vh}
 
-/* HEADER */
-.hdr{padding:22px 18px 0;border-bottom:1px solid var(--border)}
-.logo-row{display:flex;align-items:baseline;gap:10px;margin-bottom:3px}
-.logo{font-size:34px;font-weight:900;color:var(--amber);font-style:italic;letter-spacing:-1px;text-shadow:0 0 30px #E8A03066}
-.logo-tag{font-size:10px;color:var(--gray);letter-spacing:3px;text-transform:uppercase}
-.sub{font-size:10px;color:var(--gray);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+html { background: var(--v0); width: 100%; }
+body { background: var(--v0); color: var(--cream); font-family: 'Inter', system-ui, sans-serif; width: 100%; min-height: 100vh; overflow-x: hidden; }
 
-/* TABS */
-.tabs{display:flex;overflow-x:auto;gap:5px;padding:10px 14px;scrollbar-width:none;border-bottom:1px solid var(--border)}
-.tabs::-webkit-scrollbar{display:none}
-.tab{padding:7px 14px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer;border:none;letter-spacing:0.3px;transition:all .2s;background:var(--c2);color:var(--gray)}
-.tab.active{background:var(--amber);color:var(--bg)}
-.tab:hover:not(.active){background:#222;color:var(--cream)}
+/* ── HEADER ─────────────────────────────── */
+.hdr {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(6,15,9,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+}
+.hdr-inner {
+  max-width: 1280px; margin: 0 auto;
+  padding: 14px 32px 0;
+}
+.logo-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+.logo {
+  font-size: 28px; font-weight: 900; color: var(--amber);
+  font-style: italic; letter-spacing: -1px;
+  animation: neonPulse 3s ease-in-out infinite;
+}
+@keyframes neonPulse {
+  0%,100% { text-shadow: 0 0 20px rgba(232,160,48,.5); }
+  50%      { text-shadow: 0 0 40px rgba(232,160,48,.9), 0 0 70px rgba(232,160,48,.4); }
+}
+.logo-tag { font-size: 9px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; }
+.hdr-sub { font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
 
-/* BODY */
-.body{padding:18px 16px 60px}
-.section{display:none}.section.active{display:block}
+.tabs { display: flex; overflow-x: auto; gap: 4px; scrollbar-width: none; white-space: nowrap; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  padding: 8px 16px; border: none; cursor: pointer;
+  font-size: 11px; font-weight: 700; letter-spacing: .3px;
+  border-radius: 12px 12px 0 0;
+  background: transparent; color: var(--muted);
+  transition: all .2s;
+}
+.tab:hover:not(.active) { color: var(--cream); background: var(--v2); }
+.tab.active { background: var(--amber); color: var(--v0); }
 
-/* CARDS */
-.card{background:var(--c1);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px}
-.card-hot{background:var(--c1);border:1px solid #E8A03033;border-radius:12px;padding:14px;margin-bottom:10px}
-.card-red{background:var(--c1);border:1px solid #C0392B33;border-radius:12px;padding:14px;margin-bottom:10px}
-.card-green{background:var(--c1);border:1px solid var(--darkgreen);border-radius:12px;padding:14px;margin-bottom:10px}
-.card-dec{background:#1A0A00;border:2px solid var(--amber);border-radius:14px;padding:16px;margin:14px 0}
+/* ── LAYOUT ──────────────────────────────── */
+.page { max-width: 1280px; margin: 0 auto; padding: 32px 32px 80px; }
 
-/* TYPOGRAPHY */
-.lbl{font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:6px}
-.h1{font-size:22px;font-weight:900;line-height:1.15;margin-bottom:12px}
-.h2{font-size:15px;font-weight:800;margin-bottom:6px}
-.txt{font-size:13px;color:#BDBDBD;line-height:1.65}
-.txt-sm{font-size:11px;color:var(--gray);line-height:1.5}
-.a{color:var(--amber);font-weight:700}
-.gn{color:var(--green)}
-.rd{color:var(--red)}
-.gr{color:var(--gray)}
-.divider{height:1px;background:var(--border);margin:12px 0}
+.section { display: none; }
+.section.active { display: block; animation: fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-/* GRID */
-.row2{display:flex;gap:8px;margin-bottom:10px}
-.half{flex:1;background:var(--c1);border:1px solid var(--border);border-radius:10px;padding:12px}
-.big{font-size:28px;font-weight:900;color:var(--amber)}
-.big-w{font-size:24px;font-weight:900;color:var(--cream)}
-.big-r{font-size:28px;font-weight:900;color:var(--red)}
+@media (min-width: 700px) {
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+}
 
-/* STAT ROW */
-.stat-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
-.stat-row:last-child{border-bottom:none}
-.stat-label{font-size:12px;color:var(--gray)}
-.stat-val{font-size:13px;font-weight:700}
+/* ── CARDS ───────────────────────────────── */
+.card  { background: var(--v2); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-bottom: 12px; }
+.c-amb { background: var(--v2); border: 1px solid rgba(232,160,48,.3); border-radius: 14px; padding: 18px; margin-bottom: 12px; }
+.c-red { background: var(--v2); border: 1px solid rgba(192,57,43,.4); border-radius: 14px; padding: 18px; margin-bottom: 12px; }
+.c-grn { background: var(--v3); border: 1px solid var(--v4); border-radius: 14px; padding: 18px; margin-bottom: 12px; }
+.c-dec { background: linear-gradient(135deg, var(--v3), #1a0800); border: 2px solid var(--amber); border-radius: 16px; padding: 20px; margin: 14px 0; }
 
-/* PILLS */
-.pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;margin:0 4px 4px 0}
+/* ── HERO BANNER ─────────────────────────── */
+.banner {
+  background: linear-gradient(135deg, var(--v3) 0%, var(--v1) 60%, #1a0a00 100%);
+  border: 1px solid var(--border); border-radius: 18px;
+  padding: 28px; margin-bottom: 22px;
+}
 
-/* TASK */
-.task{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
-.task-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
-.task-text{font-size:13px;color:#BDBDBD;line-height:1.6}
-.task-arg{font-size:11px;color:var(--gray);margin-top:3px;font-style:italic}
+/* ── STAT BOXES ──────────────────────────── */
+.sbox { background: var(--v2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.sbox .big { font-size: 34px; font-weight: 900; line-height: 1; }
+.sbox .sm  { font-size: 11px; color: var(--muted); margin-top: 5px; }
 
-/* TABLE */
-.tbl{width:100%;border-collapse:collapse;font-size:12px}
-.tbl th{font-size:9px;color:var(--gray);text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.tbl td{padding:8px 8px;border-bottom:1px solid var(--border);color:#BDBDBD}
-.tbl tr:last-child td{border-bottom:none}
-.tbl .vibe-row td{color:var(--amber);font-weight:700}
+/* ── TYPOGRAPHY ──────────────────────────── */
+.lbl  { font-size: 9px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
+.lbl-g{ font-size: 9px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--v5); margin-bottom: 6px; }
+.h1   { font-size: 28px; font-weight: 900; line-height: 1.15; margin-bottom: 12px; }
+.h2   { font-size: 15px; font-weight: 800; margin-bottom: 8px; }
+.txt  { font-size: 13px; color: #BDBDBD; line-height: 1.65; }
+.txts { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.a  { color: var(--amber); font-weight: 700; }
+.gn { color: var(--v5); }
+.rd { color: var(--red); }
+.gr { color: var(--muted); }
+.div{ height: 1px; background: var(--border); margin: 12px 0; }
 
-/* MONTH ACCORDION */
-.month-card{background:var(--c1);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden}
-.month-hdr{padding:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;user-select:none}
-.month-hdr:hover{background:#161616}
-.month-title{font-size:15px;font-weight:800;margin-bottom:2px}
-.month-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:6px}
-.month-goal{font-size:12px;color:#BDBDBD;font-style:italic}
-.month-arrow{font-size:16px;flex-shrink:0;margin-left:8px;transition:transform .3s}
-.month-body{display:none;padding:0 14px 14px;border-top:1px solid var(--border)}
-.month-card.open .month-body{display:block}
-.month-card.open .month-arrow{transform:rotate(180deg)}
+/* ── STAT ROW ────────────────────────────── */
+.sr { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.sr:last-child { border-bottom: none; }
+.sr .sl { font-size: 12px; color: var(--muted); }
+.sr .sv { font-size: 13px; font-weight: 700; }
 
-/* STAGE CARDS */
-.stage{background:var(--c1);border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid var(--border)}
-.stage-check{color:var(--green);font-size:12px;margin-right:6px}
-.stage-item{font-size:12px;color:#BDBDBD;margin-bottom:5px;display:flex;align-items:flex-start;gap:6px}
+/* ── PILL ────────────────────────────────── */
+.pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; margin: 0 4px 4px 0; }
 
-/* BEFORE/AFTER */
-.ba-grid{display:flex;gap:8px;margin-bottom:10px}
-.ba-box{flex:1;border-radius:10px;padding:12px}
-.ba-label{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
-.ba-item{font-size:12px;color:#BDBDBD;line-height:1.8}
+/* ── TASK ────────────────────────────────── */
+.task { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+.tdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.ttxt { font-size: 13px; color: #BDBDBD; line-height: 1.6; }
+.targ { font-size: 11px; color: var(--muted); margin-top: 3px; font-style: italic; }
 
-/* PROBLEM CARD */
-.prob{background:var(--c1);border-radius:12px;padding:14px;margin-bottom:10px}
+/* ── TABLE ───────────────────────────────── */
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th { font-size: 9px; color: var(--muted); text-align: left; padding: 8px; border-bottom: 1px solid var(--border); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.tbl td { padding: 10px 8px; border-bottom: 1px solid var(--border); color: #BDBDBD; }
+.tbl tr:last-child td { border-bottom: none; }
+.tbl .vrow td { color: var(--amber) !important; font-weight: 700; }
 
-/* ANIMATIONS */
-.section.active{animation:fadeIn .3s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* ── BEFORE / AFTER ──────────────────────── */
+.ba { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.ba-box { border-radius: 12px; padding: 16px; }
+.ba-lbl { font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.ba-item { font-size: 13px; color: #BDBDBD; line-height: 2; }
 
-/* NEON GLOW on logo */
-@keyframes pulse{0%,100%{text-shadow:0 0 20px #E8A03055}50%{text-shadow:0 0 40px #E8A03099}}
-.logo{animation:pulse 3s ease-in-out infinite}
+/* ── MONTH ACCORDION ─────────────────────── */
+.month { background: var(--v2); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 10px; overflow: hidden; }
+.month-h { padding: 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; transition: background .2s; }
+.month-h:hover { background: var(--v3); }
+.month-title { font-size: 16px; font-weight: 800; margin-bottom: 3px; }
+.month-sub { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.month-goal { font-size: 12px; color: #BDBDBD; font-style: italic; }
+.month-arr { font-size: 18px; color: var(--amber); flex-shrink: 0; margin-left: 10px; transition: transform .3s; }
+.month-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); }
+.month.open .month-body { display: block; }
+.month.open .month-arr { transform: rotate(180deg); }
 
-footer{text-align:center;padding:20px;font-size:10px;color:var(--gray);letter-spacing:2px;border-top:1px solid var(--border)}
+/* ── WEEK BLOCK ──────────────────────────── */
+.wk { background: var(--v3); border-radius: 10px; padding: 14px; margin: 12px 0; }
+.wk-lbl { font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+
+/* ── STAGE ───────────────────────────────── */
+.stage { background: var(--v2); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-bottom: 12px; }
+.stage .chk { color: var(--v5); margin-right: 6px; }
+.stage .si { font-size: 13px; color: #BDBDBD; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 8px; }
+
+/* ── CHANNEL BLOCKS ──────────────────────── */
+.ch-block { background: var(--v3); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+.ch-block .icon { font-size: 22px; flex-shrink: 0; }
+.ch-block .name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.ch-block .sub  { font-size: 11px; color: var(--muted); }
+.ch-block .arr  { color: var(--amber); font-size: 16px; margin-left: auto; }
+
+/* PRIORITY ACCENT */
+.pri1 {
+  background: linear-gradient(135deg, var(--v3), var(--v2));
+  border: 1px solid var(--v5); border-radius: 14px; padding: 18px; margin-bottom: 12px;
+}
+.pri-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(39,174,96,.2); border: 1px solid var(--v5);
+  border-radius: 20px; padding: 4px 12px; font-size: 10px; font-weight: 800;
+  color: var(--v5); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;
+}
+
+footer { text-align: center; padding: 24px 32px; font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; border-top: 1px solid var(--border); }
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <div class="hdr">
-  <div class="logo-row">
-    <div class="logo">Vibe</div>
-    <div class="logo-tag">Rescue Strategy</div>
-  </div>
-  <div class="sub">Дніпро · Мост-Сіті · Травень 2026</div>
-
-  <!-- TAB BAR -->
-  <div class="tabs">
-    <button class="tab active" onclick="showTab('diag',this)">📍 Діагноз</button>
-    <button class="tab" onclick="showTab('market',this)">📊 Ринок</button>
-    <button class="tab" onclick="showTab('audience',this)">👥 Аудиторія</button>
-    <button class="tab" onclick="showTab('problems',this)">🚨 Проблеми</button>
-    <button class="tab" onclick="showTab('pivot',this)">🔄 Pivot</button>
-    <button class="tab" onclick="showTab('plan',this)">📅 План</button>
-    <button class="tab" onclick="showTab('build',this)">🛠 Будуємо</button>
+  <div class="hdr-inner">
+    <div class="logo-row">
+      <span class="logo">Vibe</span>
+      <span class="logo-tag">Rescue Strategy · Червень 2026</span>
+    </div>
+    <div class="hdr-sub">Дніпро · Мост-Сіті · Dark Kitchen Pivot</div>
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('diag',this)">📍 Діагноз</button>
+      <button class="tab" onclick="showTab('market',this)">📊 Ринок</button>
+      <button class="tab" onclick="showTab('audience',this)">👥 Аудиторія</button>
+      <button class="tab" onclick="showTab('problems',this)">🚨 Проблеми</button>
+      <button class="tab" onclick="showTab('pivot',this)">🔄 Dark Kitchen</button>
+      <button class="tab" onclick="showTab('plan',this)">📅 План</button>
+      <button class="tab" onclick="showTab('build',this)">🛠 Будуємо</button>
+    </div>
   </div>
 </div>
 
-<div class="body">
+<div class="page">
 
-<!-- ══════════════════════════════════════════════════════ ДІАГНОЗ -->
+<!-- ═══════════ ДІАГНОЗ ═══════════ -->
 <div id="tab-diag" class="section active">
-  <div class="lbl">Ситуація · Травень 2026</div>
-  <div class="h1">Ресторан не злетів.<br>Ось чому.</div>
 
-  <div class="row2">
-    <div class="half"><div class="big">800к</div><div class="txt-sm">грн/міс виторг</div></div>
-    <div class="half"><div class="big-r">0</div><div class="txt-sm">прибутку з першого дня</div></div>
-  </div>
-  <div class="row2">
-    <div class="half"><div class="big-w">300₴</div><div class="txt-sm">середній чек</div></div>
-    <div class="half"><div class="big-w" style="color:var(--gray)">10-15%</div><div class="txt-sm">доставка від ТО</div></div>
+  <div class="banner">
+    <div class="lbl">Ситуація · Червень 2026</div>
+    <div class="h1">Ресторан не злетів.<br>Ось чому.</div>
+    <div class="txt" style="max-width:600px">Продукт хороший. Рейтинги позитивні. Проблема — у форматі, локації і каналах продажу. Все це вирішується без великих інвестицій.</div>
   </div>
 
-  <div class="card-red">
-    <div class="lbl">🔴 Корінна проблема</div>
-    <div class="h2">Формат проти Локації</div>
-    <div class="txt">Класичний ресторан «сиди і насолоджуйся» стоїть у відкритому шумному атріумі ТЦ. Людина в ТЦ не хоче «занурюватись» — вона поспішає або просто проходить мимо. Затишок меблів і дизайну не перемагає відкритий простір.</div>
+  <div class="g4" style="margin-bottom:14px">
+    <div class="sbox"><div class="big a">800к</div><div class="sm">грн/міс виторг</div></div>
+    <div class="sbox"><div class="big rd">0</div><div class="sm">прибутку з першого дня</div></div>
+    <div class="sbox"><div class="big" style="color:var(--cream)">300₴</div><div class="sm">середній чек</div></div>
+    <div class="sbox"><div class="big gr">15%</div><div class="sm">доставка від ТО</div></div>
   </div>
 
-  <div class="card">
-    <div class="lbl">Додаткові чинники</div>
-    <div class="stat-row"><span class="stat-label">ТЦК-фактор</span><span class="stat-val rd">Чоловіки уникають ТЦ</span></div>
-    <div class="stat-row"><span class="stat-label">Якірні орендарі ТЦ</span><span class="stat-val rd">Zara, Bershka — закриті</span></div>
-    <div class="stat-row"><span class="stat-label">Трафік Мост-Сіті</span><span class="stat-val rd">Впав разом з орендарями</span></div>
-    <div class="stat-row"><span class="stat-label">Glovo профіль</span><span class="stat-val gr">97% але лише 63 відгуки</span></div>
-    <div class="stat-row"><span class="stat-label">Instagram</span><span class="stat-val gr">296 постів → 2 680 фоловерів</span></div>
+  <div class="g2">
+    <div class="c-red">
+      <div class="lbl">🔴 Корінна проблема</div>
+      <div class="h2">Формат проти Локації</div>
+      <div class="txt">Класичний ресторан «сиди і насолоджуйся» стоїть у відкритому шумному атріумі ТЦ. Людина в ТЦ не хоче занурюватись — вона поспішає. Затишок меблів не перемагає відкритий простір.</div>
+    </div>
+    <div class="card">
+      <div class="lbl">Додаткові чинники</div>
+      <div class="sr"><span class="sl">ТЦК-фактор</span><span class="sv rd">Чоловіки уникають ТЦ</span></div>
+      <div class="sr"><span class="sl">Якірні орендарі</span><span class="sv rd">Zara, Bershka — закриті</span></div>
+      <div class="sr"><span class="sl">Трафік Мост-Сіті</span><span class="sv rd">Впав разом з ними</span></div>
+      <div class="sr"><span class="sl">Glovo рейтинг</span><span class="sv gr">97% але лише 63 відгуки</span></div>
+      <div class="sr"><span class="sl">Instagram</span><span class="sv gr">296 постів → 2 680 фол.</span></div>
+    </div>
   </div>
 
-  <div class="card-hot">
-    <div class="lbl">Головний парадокс</div>
-    <div class="txt">Їжа смачна. Подача незвична. Упаковка гарна. Рейтинг 4.6★ Google і 97% Glovo. Відгуки позитивні. <span class="a">Проблема не в продукті — проблема в тому, що людей немає.</span> Є що продавати — немає кому і через що.</div>
+  <div class="c-grn">
+    <div class="lbl-g">Головний парадокс</div>
+    <div class="txt">Їжа смачна. Подача незвична. Упаковка гарна. Рейтинг 4.6★ Google і 97% Glovo. <span class="a">Проблема не в продукті — проблема в тому, що людей немає.</span> Є що продавати — немає кому і через що.</div>
   </div>
+
 </div>
 
-<!-- ══════════════════════════════════════════════════════ РИНОК -->
+<!-- ═══════════ РИНОК ═══════════ -->
 <div id="tab-market" class="section">
-  <div class="lbl">Ринок · Дніпро · 2026</div>
-  <div class="h1">Складний ринок.<br>Але є вікно.</div>
 
-  <div class="card-red">
-    <div class="lbl">Загальна ситуація</div>
-    <div class="stat-row"><span class="stat-label">Відвідуваність ресторанів у Дніпрі</span><span class="stat-val rd">-5% за 2024</span></div>
-    <div class="stat-row"><span class="stat-label">Серед великих міст</span><span class="stat-val rd">Найбільше падіння</span></div>
-    <div class="stat-row"><span class="stat-label">Заклади зі зниженою рентабельністю</span><span class="stat-val rd">47%</span></div>
-    <div class="stat-row"><span class="stat-label">Середній чек по ринку</span><span class="stat-val gr">+17% (інфляція)</span></div>
-    <div class="stat-row"><span class="stat-label">Ринок доставки</span><span class="stat-val gn">Продовжує зростати</span></div>
+  <div class="banner">
+    <div class="lbl">Ринок · Дніпро · 2026</div>
+    <div class="h1">Ринок доставки росте.<br>Ніша якісної їжі — порожня.</div>
   </div>
 
-  <div class="card-hot">
-    <div class="lbl">🎯 Glovo — зона Мост-Сіті (реальні дані)</div>
-    <p class="txt" style="margin-bottom:10px">Адреса: вул. Єлизавети II, 2. Дані з додатку сьогодні:</p>
-    <table class="tbl">
-      <thead><tr><th>Заклад</th><th>Рейт.</th><th>Відгуки</th><th>Час</th></tr></thead>
+  <div class="g2">
+    <div class="c-red">
+      <div class="lbl">Загальна ситуація</div>
+      <div class="sr"><span class="sl">Відвідуваність ресторанів у Дніпрі</span><span class="sv rd">-5% за 2024</span></div>
+      <div class="sr"><span class="sl">Серед великих міст України</span><span class="sv rd">Найбільше падіння</span></div>
+      <div class="sr"><span class="sl">Заклади зі зниженою рентабельністю</span><span class="sv rd">47%</span></div>
+      <div class="sr"><span class="sl">Ринок доставки</span><span class="sv gn">↑ Зростає</span></div>
+    </div>
+    <div class="card">
+      <div class="lbl">Агрегатори — реальність</div>
+      <div class="sr"><span class="sl">Комісія Glovo / Bolt</span><span class="sv rd">25–30% з кожного замовлення</span></div>
+      <div class="sr"><span class="sl">Реклама на платформі</span><span class="sv rd">Дуже дорога</span></div>
+      <div class="sr"><span class="sl">База клієнтів</span><span class="sv rd">Залишається у Glovo</span></div>
+      <div class="sr"><span class="sl">Наша стратегія</span><span class="sv a">Зростають самі, ми не вкладаємо</span></div>
+    </div>
+  </div>
+
+  <div class="c-amb">
+    <div class="lbl">Glovo · зона Мост-Сіті (реальні дані)</div>
+    <table class="tbl" style="margin-top:12px">
+      <thead><tr><th>Заклад</th><th>Рейтинг</th><th>Відгуки</th><th>Формат</th></tr></thead>
       <tbody>
-        <tr><td>Пузата Хата</td><td class="gn">99%</td><td>1000+</td><td class="gn">10-20 хв</td></tr>
-        <tr><td>Habibi</td><td class="gn">98%</td><td>293</td><td class="gn">5-15 хв🔥</td></tr>
-        <tr><td>SOVASH</td><td class="gn">97%</td><td>375</td><td>45-65 хв</td></tr>
-        <tr><td>Топ Шаурма</td><td class="gn">99%</td><td>118</td><td>35-50 хв</td></tr>
-        <tr class="vibe-row"><td>★ Vibe</td><td>97%</td><td style="color:var(--red)">63 ⚠️</td><td>35-50 хв</td></tr>
-        <tr><td>Victoria f&d</td><td style="color:var(--orange)">87%</td><td>57</td><td>35-50 хв</td></tr>
+        <tr><td>Пузата Хата</td><td class="gn">99%</td><td>1000+</td><td class="gr">Українська, dark kitchen</td></tr>
+        <tr><td>Habibi</td><td class="gn">98%</td><td>293</td><td class="gr">Шаурма, 5-15 хв 🔥</td></tr>
+        <tr><td>SOVASH / Топ Шаурма</td><td class="gn">97-99%</td><td>118-375</td><td class="gr">Стріт-фуд</td></tr>
+        <tr class="vrow"><td>★ Vibe</td><td>97%</td><td>63 ⚠️</td><td style="color:var(--v5)">Єдиний ресторан ← вільна ніша</td></tr>
       </tbody>
     </table>
+    <div class="txt" style="margin-top:12px"><span class="a">Glovo зростає як бонус</span> — без вкладень з нашого боку. Фокус — на власних каналах.</div>
   </div>
 
-  <div class="card-green">
-    <div class="lbl">✅ Ключовий висновок</div>
-    <div class="txt">Glovo в зоні — <span class="a">домінує шаурма і фастфуд</span>. Vibe єдиний якісний ресторанний формат у стрічці. Це не конкуренція — це <span class="a">порожня ніша</span>. 63 відгуки = алгоритм тебе не показує. Ціна питання — об'єм замовлень.</div>
+  <div class="c-grn">
+    <div class="lbl-g">✅ Наша ставка</div>
+    <div class="txt"><span class="a">Власна доставка = головний канал.</span> 0% комісії. Своя база клієнтів. Повторні замовлення без посередників. Telegram бот + сайт дають це вже в червні.</div>
   </div>
 
-  <div class="card">
-    <div class="lbl">Агрегатори в Дніпрі</div>
-    <div class="stat-row"><span class="stat-label">Glovo</span><span class="stat-val">✓ є, 48 міст</span></div>
-    <div class="stat-row"><span class="stat-label">Bolt Food</span><span class="stat-val">✓ є, 40 міст</span></div>
-    <div class="stat-row"><span class="stat-label">LOKO</span><span class="stat-val">✓ є, прив'язаний до Сільпо</span></div>
-    <div class="stat-row"><span class="stat-label">Операторів доставки в місті</span><span class="stat-val gr">120+</span></div>
-    <div class="stat-row"><span class="stat-label">Якісна ресторанна доставка</span><span class="stat-val gn">Майже відсутня ← вікно</span></div>
-  </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════ АУДИТОРІЯ -->
+<!-- ═══════════ АУДИТОРІЯ ═══════════ -->
 <div id="tab-audience" class="section">
-  <div class="lbl">Цільова аудиторія</div>
-  <div class="h1">Хто наш клієнт<br>і де він знаходиться</div>
 
-  <div class="card-hot">
-    <div class="lbl">📍 Що є в радіусі 300-500м від Vibe</div>
-    <div class="stat-row"><span class="stat-label">SoftServe Dnipro</span><span class="stat-val a">300м · Сотні IT-спеців</span></div>
-    <div class="stat-row"><span class="stat-label">БЦ Призма</span><span class="stat-val a">50м! Через вулицю</span></div>
-    <div class="stat-row"><span class="stat-label">Steps BC</span><span class="stat-val">300м · 7 днів на тиждень</span></div>
-    <div class="stat-row"><span class="stat-label">STROOM + Brooks</span><span class="stat-val">200м · Дорогий конкурент</span></div>
-    <div class="stat-row"><span class="stat-label">Atrium BC</span><span class="stat-val gr">700м · пр. Яворницького</span></div>
+  <div class="banner">
+    <div class="lbl">Цільова аудиторія</div>
+    <div class="h1">Хто наш клієнт<br>і де він знаходиться</div>
   </div>
 
-  <div class="lbl" style="margin:14px 0 8px">3 ключових сегменти</div>
-
-  <div class="card" style="border-left:3px solid var(--green)">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <div class="h2">💻 IT та офісна молодь</div>
-      <span class="pill" style="background:#27AE6022;color:var(--green)">ПРІОРИТЕТ 1</span>
+  <div class="c-amb" style="margin-bottom:16px">
+    <div class="lbl">📍 Що є в радіусі 300–500м від Vibe</div>
+    <div class="g2" style="margin-top:12px">
+      <div>
+        <div class="sr"><span class="sl">SoftServe Dnipro</span><span class="sv a">300м · IT-компанія</span></div>
+        <div class="sr"><span class="sl">БЦ Призма</span><span class="sv a">50м! Через вулицю</span></div>
+      </div>
+      <div>
+        <div class="sr"><span class="sl">Steps BC</span><span class="sv">300м · 7 днів/тиж</span></div>
+        <div class="sr"><span class="sl">STROOM + Brooks</span><span class="sv">200м · дорогий конкурент без доставки</span></div>
+      </div>
     </div>
-    <div class="txt">SoftServe + БЦ поряд. Стабільний дохід, замовляють регулярно, платять карткою. Пік 12-14:00 і 18-20:00. Цінують якість і швидкість.</div>
-    <div style="font-size:11px;color:var(--amber);margin-top:8px;font-weight:600">→ Канал: корпоративна доставка + Glovo</div>
   </div>
 
-  <div class="card" style="border-left:3px solid var(--amber)">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <div class="h2">🌆 Активна молодь центру</div>
-      <span class="pill" style="background:#E8A03022;color:var(--amber)">ПРІОРИТЕТ 2</span>
+  <div class="g3">
+    <div class="card" style="border-left:3px solid var(--v5)">
+      <span class="pill" style="background:rgba(39,174,96,.15);color:var(--v5)">ПРІОРИТЕТ 1</span>
+      <div class="h2" style="margin-top:8px">💻 IT та офісна молодь</div>
+      <div class="txt">SoftServe + БЦ поряд. Стабільний дохід, замовляють їжу регулярно. Обідній пік 12-14:00, вечірній 18-20:00.</div>
+      <div style="font-size:11px;color:var(--amber);margin-top:10px;font-weight:600">→ Прямий аутріч + власна доставка</div>
     </div>
-    <div class="txt">Широкий сегмент 20-35 років, різні джерела доходу. Часто замовляють групами, цінують швидкість і зручність. Активні ввечері і у вихідні.</div>
-    <div style="font-size:11px;color:var(--amber);margin-top:8px;font-weight:600">→ Канал: Glovo + власний Telegram бот</div>
-  </div>
-
-  <div class="card" style="border-left:3px solid var(--gray)">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <div class="h2">👩 Жінки 25-40</div>
-      <span class="pill" style="background:#66666622;color:var(--gray)">ІСНУЮЧА БАЗА</span>
+    <div class="card" style="border-left:3px solid var(--amber)">
+      <span class="pill" style="background:rgba(232,160,48,.15);color:var(--amber)">ПРІОРИТЕТ 2</span>
+      <div class="h2" style="margin-top:8px">🌆 Активна молодь центру</div>
+      <div class="txt">Широкий сегмент 20-35 років, різні доходи. Замовляють групами, ввечері і у вихідні.</div>
+      <div style="font-size:11px;color:var(--amber);margin-top:10px;font-weight:600">→ Instagram + Telegram бот</div>
     </div>
-    <div class="txt">Вже є в залі — видно з фото Google. Потенціал для доставки додому. Реагують на контент та програми лояльності. Мешканці центру в радіусі 2-3 км.</div>
-    <div style="font-size:11px;color:var(--amber);margin-top:8px;font-weight:600">→ Канал: Instagram + власний сайт</div>
+    <div class="card" style="border-left:3px solid var(--muted)">
+      <span class="pill" style="background:rgba(106,128,112,.15);color:var(--muted)">ІСНУЮЧА БАЗА</span>
+      <div class="h2" style="margin-top:8px">👩 Жінки 25-40</div>
+      <div class="txt">Вже є в залі. Мешканці центру, 2-3 км. Реагують на контент і програми лояльності.</div>
+      <div style="font-size:11px;color:var(--amber);margin-top:10px;font-weight:600">→ Instagram + сайт</div>
+    </div>
   </div>
 
-  <div class="card-green">
-    <div class="lbl">Ключовий інсайт по ТЦК</div>
-    <div class="txt">Чоловіки уникають ТЦ і публічних місць — але <span class="a">замовляють доставку в офіс без проблем</span>. Доставка прибирає бар'єр фізичної присутності. Та сама людина що не прийде в зал — охоче замовить.</div>
+  <div class="c-grn">
+    <div class="lbl-g">Ключовий інсайт по ТЦК</div>
+    <div class="txt">Чоловіки уникають ТЦ — але <span class="a">замовляють доставку в офіс без проблем</span>. Та сама людина що не прийде в зал — охоче замовить онлайн. Dark kitchen знімає цей бар'єр.</div>
   </div>
+
 </div>
 
-<!-- ══════════════════════════════════════════════════════ ПРОБЛЕМИ -->
+<!-- ═══════════ ПРОБЛЕМИ ═══════════ -->
 <div id="tab-problems" class="section">
-  <div class="lbl">Аналіз проблем</div>
-  <div class="h1">Де насправді<br>течє вода</div>
 
-  <div class="prob" style="border-left:3px solid var(--red)">
-    <span class="pill" style="background:#C0392B22;color:var(--red)">КРИТИЧНО</span>
-    <div class="h2" style="margin-top:4px">Формат не відповідає локації</div>
-    <div class="txt">Ресторанний досвід «занурення» неможливий в шумному відкритому атріумі. Це архітектурна і концептуальна помилка з першого дня.</div>
-    <div style="font-size:11px;color:var(--green);margin-top:8px;font-weight:600">✓ Рішення: Pivot до delivery-first моделі</div>
+  <div class="banner">
+    <div class="lbl">Аналіз проблем</div>
+    <div class="h1">Де насправді<br>течє вода</div>
   </div>
 
-  <div class="prob" style="border-left:3px solid var(--red)">
-    <span class="pill" style="background:#C0392B22;color:var(--red)">КРИТИЧНО</span>
-    <div class="h2" style="margin-top:4px">63 відгуки на Glovo = невидимість</div>
-    <div class="txt">Алгоритм Glovo ранжує за об'ємом замовлень. Пузата Хата — 1000+ відгуків. Vibe — 63. Нові користувачі вас просто не бачать у стрічці.</div>
-    <div style="font-size:11px;color:var(--green);margin-top:8px;font-weight:600">✓ Рішення: Акції на перше замовлення + push на відгуки</div>
+  <div class="g2">
+    <div class="card" style="border-left:3px solid var(--red)">
+      <span class="pill" style="background:rgba(192,57,43,.15);color:var(--red)">КРИТИЧНО</span>
+      <div class="h2" style="margin-top:6px">Формат ≠ Локація</div>
+      <div class="txt">Ресторанний досвід «занурення» неможливий в шумному атріумі ТЦ.</div>
+      <div style="font-size:11px;color:var(--v5);margin-top:8px;font-weight:600">✓ Pivot до dark kitchen</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red)">
+      <span class="pill" style="background:rgba(192,57,43,.15);color:var(--red)">КРИТИЧНО</span>
+      <div class="h2" style="margin-top:6px">Власної доставки немає</div>
+      <div class="txt">Telegram — просто чат. Сайту немає. База клієнтів — нульова.</div>
+      <div style="font-size:11px;color:var(--v5);margin-top:8px;font-weight:600">✓ Запустити у першій половині червня</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--orange)">
+      <span class="pill" style="background:rgba(230,126,34,.15);color:var(--orange)">СЕРЙОЗНО</span>
+      <div class="h2" style="margin-top:6px">Доставка лише 15% ТО</div>
+      <div class="txt">При наявності Glovo має бути 40-60%. Ніколи не просували активно.</div>
+      <div style="font-size:11px;color:var(--v5);margin-top:8px;font-weight:600">✓ Delivery-first підхід</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--orange)">
+      <span class="pill" style="background:rgba(230,126,34,.15);color:var(--orange)">СЕРЙОЗНО</span>
+      <div class="h2" style="margin-top:6px">Instagram не конвертує</div>
+      <div class="txt">296 постів і нуль CTA на замовлення. Люди дивляться на їжу і йдуть.</div>
+      <div style="font-size:11px;color:var(--v5);margin-top:8px;font-weight:600">✓ CTA в кожному пості</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--orange)">
+      <span class="pill" style="background:rgba(230,126,34,.15);color:var(--orange)">СЕРЙОЗНО</span>
+      <div class="h2" style="margin-top:6px">Фудкост vs Ціна</div>
+      <div class="txt">300 грн середній чек при ресторанному фудкості — математика не сходиться.</div>
+      <div style="font-size:11px;color:var(--v5);margin-top:8px;font-weight:600">✓ Мінімальне замовлення 399 грн</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--muted)">
+      <span class="pill" style="background:rgba(106,128,112,.15);color:var(--muted)">СЕРЕДНЬО</span>
+      <div class="h2" style="margin-top:6px">Немає бази клієнтів</div>
+      <div class="txt">Кожне замовлення — як перше. Повторних продажів немає.</div>
+      <div style="font-size:11px;color:var(--v5);margin-top:8px;font-weight:600">✓ Бот збирає базу автоматично</div>
+    </div>
   </div>
 
-  <div class="prob" style="border-left:3px solid var(--orange)">
-    <span class="pill" style="background:#E67E2222;color:var(--orange)">СЕРЙОЗНО</span>
-    <div class="h2" style="margin-top:4px">Доставка лише 10-15% ТО</div>
-    <div class="txt">При наявності Glovo і Telegram цей показник має бути 40-60%. Доставку ніколи не просували активно — вона просто «є».</div>
-    <div style="font-size:11px;color:var(--green);margin-top:8px;font-weight:600">✓ Рішення: Зробити доставку головним каналом</div>
-  </div>
-
-  <div class="prob" style="border-left:3px solid var(--orange)">
-    <span class="pill" style="background:#E67E2222;color:var(--orange)">СЕРЙОЗНО</span>
-    <div class="h2" style="margin-top:4px">Instagram не конвертує</div>
-    <div class="txt">296 постів → 2 680 фоловерів = 9 фоловерів за пост. Немає чіткого CTA на замовлення. Люди дивляться на красиву їжу — і йдуть.</div>
-    <div style="font-size:11px;color:var(--green);margin-top:8px;font-weight:600">✓ Рішення: CTA на замовлення в кожному пості</div>
-  </div>
-
-  <div class="prob" style="border-left:3px solid var(--orange)">
-    <span class="pill" style="background:#E67E2222;color:var(--orange)">СЕРЙОЗНО</span>
-    <div class="h2" style="margin-top:4px">Фудкост vs середній чек</div>
-    <div class="txt">300 грн при ресторанному фудкості — математика не сходиться. Приємні ціни б'ють по рентабельності щодня.</div>
-    <div style="font-size:11px;color:var(--green);margin-top:8px;font-weight:600">✓ Рішення: Мінімальна сума + комбо-сети</div>
-  </div>
-
-  <div class="prob" style="border-left:3px solid var(--gray)">
-    <span class="pill" style="background:#66666622;color:var(--gray)">СЕРЕДНЬО</span>
-    <div class="h2" style="margin-top:4px">Telegram = просто чат</div>
-    <div class="txt">Без автоматизації, без збору бази клієнтів, без аналітики. Людина пише — чекає відповіді. Частина не дочекується.</div>
-    <div style="font-size:11px;color:var(--green);margin-top:8px;font-weight:600">✓ Рішення: Telegram бот + сайт з замовленням</div>
-  </div>
-
-  <div class="prob" style="border-left:3px solid var(--gray)">
-    <span class="pill" style="background:#66666622;color:var(--gray)">СЕРЕДНЬО</span>
-    <div class="h2" style="margin-top:4px">Немає бази клієнтів</div>
-    <div class="txt">Google-форма лояльності є але не працює системно. Немає жодного інструменту повторних продажів.</div>
-    <div style="font-size:11px;color:var(--green);margin-top:8px;font-weight:600">✓ Рішення: CRM через бот і сайт</div>
-  </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════ PIVOT -->
+<!-- ═══════════ DARK KITCHEN ═══════════ -->
 <div id="tab-pivot" class="section">
-  <div class="lbl">Стратегічний Pivot</div>
-  <div class="h1">Від ресторану<br>до бренду доставки</div>
 
-  <div class="ba-grid">
-    <div class="ba-box" style="border:1px solid #C0392B33">
-      <div class="ba-label rd">ЗАРАЗ</div>
-      <div class="ba-item">🪑 Ресторан в ТЦ<br>🚶 Трафік з залу<br>📦 Доставка побічна<br>💸 Висока оренда<br>👁 Невидимий онлайн</div>
+  <div class="banner">
+    <div class="lbl">Стратегічний Pivot</div>
+    <div class="h1">Dark Kitchen<br>+ зал як бонус</div>
+  </div>
+
+  <div class="pri1" style="margin-bottom:16px">
+    <div class="pri-badge">★ Ключова ідея</div>
+    <div class="h2" style="color:var(--cream);margin-bottom:8px">Кухня — це актив. Зал — це бонус.</div>
+    <div class="txt">Кухня знаходиться на 0-му поверсі і вже фізично відокремлена. Це ідеальна база для dark kitchen. Зал залишається відкритим для тих хто прийде — але він більше не несе весь бізнес на собі.</div>
+  </div>
+
+  <div class="ba" style="margin-bottom:16px">
+    <div class="ba-box" style="background:var(--v2);border:1px solid rgba(192,57,43,.3)">
+      <div class="ba-lbl rd">ЗАРАЗ</div>
+      <div class="ba-item">🪑 Ресторан = основа<br>📦 Доставка = побічне<br>💸 Зал з'їдає оренду<br>🧑‍🍳 Кухня простоює<br>👁 Онлайн невидимі</div>
     </div>
-    <div class="ba-box" style="border:1px solid var(--darkgreen)">
-      <div class="ba-label gn">ПІСЛЯ PIVOT</div>
-      <div class="ba-item">🍳 Кухня = актив<br>🛵 Доставка головна<br>🪑 Зал — бонус<br>📱 Власний канал<br>👁 Видимість онлайн</div>
+    <div class="ba-box" style="background:var(--v3);border:1px solid var(--v4)">
+      <div class="ba-lbl gn">DARK KITCHEN</div>
+      <div class="ba-item">🍳 Кухня = головний актив<br>🛵 Доставка = пріоритет №1<br>🪑 Зал — приємний бонус<br>📱 Власний канал<br>👁 Видимі онлайн</div>
     </div>
   </div>
 
-  <div class="card-hot">
-    <div class="lbl">3 канали продажів замість 1</div>
-    <div class="task"><div class="task-dot" style="background:var(--amber)"></div><div><div class="task-text">Glovo / Bolt — розкачати об'єм, вийти з невидимості</div><div class="task-arg">Зараз 63 відгуки. Мета — 300+ за 3 місяці через акції і якість</div></div></div>
-    <div class="task"><div class="task-dot" style="background:var(--amber)"></div><div><div class="task-text">Власний сайт + Telegram бот — будуємо ми</div><div class="task-arg">0% комісії, своя база клієнтів, повторні замовлення без Glovo</div></div></div>
-    <div class="task"><div class="task-dot" style="background:var(--amber)"></div><div><div class="task-text">Корпоративна доставка в офіси</div><div class="task-arg">SoftServe, БЦ Призма через дорогу — прямий контакт, гарантований об'єм</div></div></div>
+  <div class="c-amb">
+    <div class="lbl">3 канали — по пріоритету</div>
+    <div class="g3" style="margin-top:12px">
+      <div style="background:var(--v3);border:1px solid var(--v4);border-radius:12px;padding:16px">
+        <div style="font-size:10px;color:var(--v5);font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">ПРІОРИТЕТ 1</div>
+        <div style="font-size:24px;margin-bottom:8px">📱</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">Власна доставка</div>
+        <div class="txts">Сайт + Telegram бот. 0% комісії. Своя база. Запускаємо в червні.</div>
+      </div>
+      <div style="background:var(--v2);border:1px solid var(--border);border-radius:12px;padding:16px">
+        <div style="font-size:10px;color:var(--amber);font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">ПРІОРИТЕТ 2</div>
+        <div style="font-size:24px;margin-bottom:8px">🏢</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">Корпоративна доставка</div>
+        <div class="txts">SoftServe, БЦ через дорогу. Прямий аутріч. Гарантований об'єм.</div>
+      </div>
+      <div style="background:var(--v2);border:1px solid var(--border);border-radius:12px;padding:16px;opacity:.65">
+        <div style="font-size:10px;color:var(--muted);font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">БОНУС</div>
+        <div style="font-size:24px;margin-bottom:8px">🟡</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">Glovo / Bolt</div>
+        <div class="txts">Зростають самі. Ми не вкладаємо в рекламу.</div>
+      </div>
+    </div>
   </div>
 
-  <div class="card-green">
-    <div class="lbl">Чому реально без великих вкладень</div>
-    <div class="task"><div class="task-dot" style="background:var(--green)"></div><div class="task-text">Кухня вже є і окрема — нічого не переносити</div></div>
-    <div class="task"><div class="task-dot" style="background:var(--green)"></div><div class="task-text">Glovo вже підключений — потрібна оптимізація, не запуск</div></div>
-    <div class="task"><div class="task-dot" style="background:var(--green)"></div><div class="task-text">Telegram є — потрібна автоматизація, не з нуля</div></div>
-    <div class="task"><div class="task-dot" style="background:var(--green)"></div><div class="task-text">Упаковка вже гарна — це конкурентна перевага для доставки</div></div>
-    <div class="task"><div class="task-dot" style="background:var(--green)"></div><div class="task-text">Рейтинг 97% на Glovo — є на чому будувати</div></div>
+  <div class="c-grn">
+    <div class="lbl-g">Чому dark kitchen — без великих вкладень</div>
+    <div class="g2" style="margin-top:10px">
+      <div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div class="ttxt">Кухня вже є і фізично окрема (0-й поверх)</div></div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div class="ttxt">Меню, рецептури, кухарів — не чіпаємо</div></div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div class="ttxt">Упаковка вже гарна — конкурентна перевага</div></div>
+      </div>
+      <div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div class="ttxt">Glovo вже підключений — зростає як бонус</div></div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div class="ttxt">Зал залишається — витрати не зростають</div></div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div class="ttxt">Рейтинг 97% Glovo — є на чому будувати</div></div>
+      </div>
+    </div>
   </div>
 
-  <div class="card">
-    <div class="lbl">Що НЕ міняємо</div>
-    <div class="txt">Меню, рецептури, кухарів — не чіпаємо. Зал не закриваємо. Бренд Vibe залишається. <span class="a">Міняємо тільки фокус і канали продажу.</span></div>
-  </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════ ПЛАН -->
+<!-- ═══════════ ПЛАН ═══════════ -->
 <div id="tab-plan" class="section">
-  <div class="lbl">План дій</div>
-  <div class="h1">Червень → Вересень<br>Крок за кроком</div>
 
-  <div class="card-dec">
-    <div class="lbl">⚠️ ТОЧКА РІШЕННЯ · 15 ЛИПНЯ 2026</div>
-    <div class="txt" style="margin-top:6px">Якщо доставка виросла на <span class="a" style="font-size:16px">30%+</span> і кількість чеків збільшилась — продовжуємо і будуємо далі.<br><br>Якщо ні — чесна розмова про закриття з мінімальними збитками і підготовку до перезапуску.</div>
+  <div class="banner">
+    <div class="lbl">План дій</div>
+    <div class="h1">Червень — Серпень<br>По тижнях, з аргументами</div>
   </div>
 
-  <!-- МІСЯЦЬ 1 -->
-  <div class="month-card" style="border-left:3px solid var(--red)">
-    <div class="month-hdr" onclick="toggleMonth(this)">
+  <div class="c-dec">
+    <div class="lbl">⚠️ ТОЧКА РІШЕННЯ · 15 ЛИПНЯ 2026</div>
+    <div class="txt" style="margin-top:8px">Якщо власні замовлення виросли на <span class="a" style="font-size:18px">30%+</span> — продовжуємо і масштабуємо.<br><br>Якщо ні — чесна розмова: закриття з мінімальними збитками і пошук нової локації під dark kitchen.</div>
+  </div>
+
+  <!-- ЧЕРВЕНЬ -->
+  <div class="month" style="border-left:3px solid var(--red)">
+    <div class="month-h" onclick="toggleM(this)">
       <div>
         <div class="month-title rd">ЧЕРВЕНЬ 2026</div>
-        <div class="month-sub">Місяць виживання · Терміново</div>
-        <div class="month-goal">Мета: довести що доставка може рости. Зупинити кровотечу.</div>
+        <div class="month-sub">Запуск інфраструктури · Перші корпоративні замовлення</div>
+        <div class="month-goal">Мета: запустити сайт, бот і отримати перші 30+ замовлень через власні канали.</div>
       </div>
-      <div class="month-arrow">▼</div>
+      <div class="month-arr">▼</div>
     </div>
     <div class="month-body">
-      <div class="task" style="margin-top:14px"><div class="task-dot" style="background:var(--red)"></div><div><div class="task-text">Glovo: оновити фото страв, описи, заголовок профілю</div><div class="task-arg">Перше враження = конверсія. Зараз профіль слабкий візуально</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--red)"></div><div><div class="task-text">Glovo: замінити постійну -15% на «Перше замовлення -20%»</div><div class="task-arg">Залучає нових клієнтів без втрати маржі на постійниках</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--red)"></div><div><div class="task-text">Instagram: 1 пост/день з CTA «Замов через Glovo / Telegram»</div><div class="task-arg">Зараз контент без призову до дії — люди дивляться і йдуть</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--red)"></div><div><div class="task-text">Telegram: зробити меню і ціни зрозумілими з першого повідомлення</div><div class="task-arg">Чіткість = більше замовлень. Зараз людина пише і чекає</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--red)"></div><div><div class="task-text">Корпоративний аутріч: лист / дзвінок в SoftServe + БЦ Призма</div><div class="task-arg">300-500 потенційних клієнтів через дорогу. Нульові витрати</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--red)"></div><div><div class="task-text">Stories з кухнею — показати що Vibe є і що доставляє</div><div class="task-arg">Більшість людей в зоні не знають про існування ресторану</div></div></div>
+
+      <div class="wk" style="border-left:3px solid var(--red)">
+        <div class="wk-lbl rd">Тиждень 1 — Сайт і бот (Hell + AI)</div>
+        <div class="task"><div class="tdot" style="background:var(--red)"></div><div><div class="ttxt">Запустити сайт з меню і кнопкою «Замовити → Telegram»</div><div class="targ">Вже будуємо. GitHub Pages — безкоштовно. Людина бачить красиве меню і замовляє одразу</div></div></div>
+        <div class="task"><div class="tdot" style="background:var(--red)"></div><div><div class="ttxt">Запустити Telegram бот з автоматичним меню</div><div class="targ">Замість чату — /start → меню. Не чекає відповіді. Конверсія в 2-3 рази вища</div></div></div>
+        <div class="task"><div class="tdot" style="background:var(--red)"></div><div><div class="ttxt">Мінімальне замовлення 399 грн на власних каналах</div><div class="targ">Природно збільшує чек — людина додає страву щоб досягти порогу безкоштовної доставки</div></div></div>
+      </div>
+
+      <div class="wk" style="border-left:3px solid var(--orange)">
+        <div class="wk-lbl" style="color:var(--orange)">Тиждень 1-2 — Instagram pivot (команда ресторану)</div>
+        <div class="task"><div class="tdot" style="background:var(--orange)"></div><div><div class="ttxt">Кожен пост завершується: «Замов через посилання в шапці 🛵»</div><div class="targ">Зараз 296 постів — нуль CTA. Ця зміна нічого не коштує і одразу дає конверсії</div></div></div>
+        <div class="task"><div class="tdot" style="background:var(--orange)"></div><div><div class="ttxt">Linktree: першою кнопкою ставимо «Замовити на сайті»</div><div class="targ">Зараз власний канал не пріоритизований. Люди йдуть у Glovo — ми платимо комісію</div></div></div>
+        <div class="task"><div class="tdot" style="background:var(--orange)"></div><div><div class="ttxt">3 Stories на тиждень: кухня, страви в упаковці, «Доставляємо за 40 хв»</div><div class="targ">Більшість підписників не знають що є доставка. Stories — найдешевший спосіб нагадати</div></div></div>
+      </div>
+
+      <div class="wk" style="border-left:3px solid var(--amber)">
+        <div class="wk-lbl" style="color:var(--amber)">Тиждень 2-3 — Корпоративний аутріч (Hell координує)</div>
+        <div class="task"><div class="tdot" style="background:var(--amber)"></div><div><div class="ttxt">SoftServe: знайти офіс-менеджера в LinkedIn/Telegram, написати напряму</div><div class="targ">300м від ресторану. Один корпоративний контракт = 100-200 замовлень на місяць при нульовій вартості залучення</div></div></div>
+        <div class="task"><div class="tdot" style="background:var(--amber)"></div><div><div class="ttxt">БЦ Призма: зайти особисто, залишити меню, запропонувати тестовий тиждень безкоштовної доставки</div><div class="targ">50м через вулицю. Фізична присутність ефективніша за email. «Тестовий тиждень» — низький бар'єр для прийняття рішення</div></div></div>
+        <div class="task"><div class="tdot" style="background:var(--amber)"></div><div><div class="ttxt">Steps BC: email або дзвінок HR з пропозицією корпоративних ланчів</div><div class="targ">Активний 7 днів на тиждень. Постійний потік офісних людей у обідній час</div></div></div>
+      </div>
+
+      <div class="wk" style="border-left:3px solid var(--v5)">
+        <div class="wk-lbl" style="color:var(--v5)">Тиждень 3-4 — Перші результати і реактивація</div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div><div class="ttxt">Зібрати контакти всіх хто замовляв раніше через Telegram, надіслати про сайт і знижку</div><div class="targ">«Ми оновились — замов зі знижкою 15% цього тижня». Найдешевший спосіб отримати повторні замовлення</div></div></div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div><div class="ttxt">Запустити програму лояльності в боті: кожне 5-е замовлення — десерт у подарунок</div><div class="targ">Просто, зрозуміло, не коштує грошей поки об'єм малий. Утримує клієнта</div></div></div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div><div class="ttxt">Зафіксувати: кількість замовлень через власний канал vs минулий місяць</div><div class="targ">Це і є дані для точки рішення 15 липня</div></div></div>
+      </div>
+
     </div>
   </div>
 
-  <!-- МІСЯЦЬ 2 -->
-  <div class="month-card" style="border-left:3px solid var(--amber)">
-    <div class="month-hdr" onclick="toggleMonth(this)">
+  <!-- ЛИПЕНЬ -->
+  <div class="month" style="border-left:3px solid var(--amber)">
+    <div class="month-h" onclick="toggleM(this)">
       <div>
         <div class="month-title a">ЛИПЕНЬ 2026</div>
-        <div class="month-sub">Точка рішення + Цифровий фундамент</div>
-        <div class="month-goal">Мета: запустити власні канали, перша корпоративна угода.</div>
+        <div class="month-sub">Масштабування корпоративного · Перші 100+ власних замовлень</div>
+        <div class="month-goal">Мета: 3-5 корпоративних партнерів, 100+ замовлень через власний канал за місяць.</div>
       </div>
-      <div class="month-arrow">▼</div>
+      <div class="month-arr">▼</div>
     </div>
     <div class="month-body">
-      <div class="task" style="margin-top:14px"><div class="task-dot" style="background:var(--amber)"></div><div><div class="task-text">Сайт з онлайн-замовленням — запускаємо (Hell + AI)</div><div class="task-arg">Власний канал = 0% комісії. Будуємо базу клієнтів</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--amber)"></div><div><div class="task-text">Telegram бот замість чату — автоматизоване меню і замовлення</div><div class="task-arg">Скорочує час відповіді з 10 хв до миттєвого. Більше конверсій</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--amber)"></div><div><div class="task-text">Мінімальна сума замовлення 399 грн на власних каналах</div><div class="task-arg">Природно збільшує чек — людина додає страву щоб досягти порогу</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--amber)"></div><div><div class="task-text">Google Maps: нові фото, відповісти на всі відгуки</div><div class="task-arg">Безкоштовний трафік. Зараз недовикористаний</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--amber)"></div><div><div class="task-text">Перша корпоративна угода — пілот з одним офісом на тиждень</div><div class="task-arg">20-30 гарантованих замовлень на тиждень від одного клієнта</div></div></div>
+
+      <div class="wk" style="border-left:3px solid var(--amber)">
+        <div class="wk-lbl" style="color:var(--amber)">Тиждень 1 — Конвертувати корпоративний контакт у договір</div>
+        <div class="task"><div class="tdot" style="background:var(--amber)"></div><div><div class="ttxt">З офісами де було зацікавлення в червні — укласти усну домовленість</div><div class="targ">Формат: «Ваші співробітники замовляють через бот, ви отримуєте 10% знижку від суми понад 2000 грн/тиждень» — вигідно обом, легко запам'ятовується</div></div></div>
+        <div class="task"><div class="tdot" style="background:var(--amber)"></div><div><div class="ttxt">Зробити окрему «корпоративну» сторінку на сайті з умовами і формою заявки</div><div class="targ">Офіс-менеджеру потрібно щось показати керівнику. Красива сторінка з умовами — це аргумент</div></div></div>
+      </div>
+
+      <div class="wk" style="border-left:3px solid var(--amber)">
+        <div class="wk-lbl" style="color:var(--amber)">Тиждень 2 — Розширення аутрічу і перша реклама</div>
+        <div class="task"><div class="tdot" style="background:var(--amber)"></div><div><div class="ttxt">Пройтись по всіх БЦ в радіусі 1 км — Atrium, Civilization та інші</div><div class="targ">Кожен БЦ = потенційно 50-200 замовлень на місяць. Один похід з меню коштує лише часу</div></div></div>
+        <div class="task"><div class="tdot" style="background:var(--amber)"></div><div><div class="ttxt">Запустити один таргетований пост в Instagram — доставка в офіс, геотаргет 2 км</div><div class="targ">Бюджет 500-1000 грн. Одна корпоративна угода окупає це в перший тиждень</div></div></div>
+      </div>
+
+      <div class="wk" style="border-left:3px solid var(--amber)">
+        <div class="wk-lbl" style="color:var(--amber)">Тиждень 3-4 — Оплата онлайн і автоматизація</div>
+        <div class="task"><div class="tdot" style="background:var(--amber)"></div><div><div class="ttxt">Підключити LiqPay до сайту — передоплата при замовленні</div><div class="targ">Зменшує no-show замовлення. Збільшує середній чек — людина планує замовлення заздалегідь</div></div></div>
+        <div class="task"><div class="tdot" style="background:var(--amber)"></div><div><div class="ttxt">Надіслати акцію по базі: «Замов знову — десерт у подарунок»</div><div class="targ">Повторне замовлення коштує в 5-7 разів дешевше ніж залучити нового клієнта. База — це актив</div></div></div>
+      </div>
+
     </div>
   </div>
 
-  <!-- МІСЯЦЬ 3 -->
-  <div class="month-card" style="border-left:3px solid var(--green)">
-    <div class="month-hdr" onclick="toggleMonth(this)">
+  <!-- СЕРПЕНЬ -->
+  <div class="month" style="border-left:3px solid var(--v5)">
+    <div class="month-h" onclick="toggleM(this)">
       <div>
         <div class="month-title gn">СЕРПЕНЬ 2026</div>
-        <div class="month-sub">Масштабування</div>
-        <div class="month-goal">Мета: зростати по каналах, будувати базу клієнтів.</div>
+        <div class="month-sub">CRM · Автоматизація · Рішення по залу</div>
+        <div class="month-goal">Мета: автоматизований повторний продаж, аналіз рентабельності, рішення щодо формату залу.</div>
       </div>
-      <div class="month-arrow">▼</div>
+      <div class="month-arr">▼</div>
     </div>
     <div class="month-body">
-      <div class="task" style="margin-top:14px"><div class="task-dot" style="background:var(--green)"></div><div><div class="task-text">База клієнтів: збирати контакти через бот і сайт</div><div class="task-arg">Кожен хто замовив — потенційний повторний клієнт</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--green)"></div><div><div class="task-text">Програма лояльності: кожне 5-е замовлення -15% автоматично</div><div class="task-arg">Повторні замовлення дешевше залучати ніж нових клієнтів</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--green)"></div><div><div class="task-text">Корпоративний напрямок: 3-5 офісів паралельно</div><div class="task-arg">1 офіс = стабільні 80-150 чеків на місяць</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--green)"></div><div><div class="task-text">Targeted Instagram реклама на доставку — мінімальний бюджет</div><div class="task-arg">Геотаргет центр Дніпра, 20-35 років, CTA на сайт/бот</div></div></div>
+      <div class="g2" style="margin-top:14px">
+        <div>
+          <div class="task"><div class="tdot" style="background:var(--v5)"></div><div><div class="ttxt">CRM через Supabase — безкоштовно до 50к рядків</div><div class="targ">Знаємо хто, що і коли замовляв. Персональні пропозиції автоматично</div></div></div>
+          <div class="task"><div class="tdot" style="background:var(--v5)"></div><div><div class="ttxt">Реактивація «сплячих»: не замовляли 14 днів → бот надсилає нагадування автоматично</div><div class="targ">Додатковий дохід без жодних дій з боку команди</div></div></div>
+        </div>
+        <div>
+          <div class="task"><div class="tdot" style="background:var(--v5)"></div><div><div class="ttxt">Аналіз P&L: зал vs доставка — чіткі цифри для рішення</div><div class="targ">На основі даних вирішуємо: скорочення годин залу або нова концепція (event, корпоративи)</div></div></div>
+          <div class="task"><div class="tdot" style="background:var(--v5)"></div><div><div class="ttxt">Event-формат для залу: закриті корпоративи, дегустації</div><div class="targ">Атріум з неоном і зеленню — унікальне місце для нестандартних подій</div></div></div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- МІСЯЦЬ 4 -->
-  <div class="month-card" style="border-left:3px solid var(--darkgreen)">
-    <div class="month-hdr" onclick="toggleMonth(this)">
+  <div class="c-grn" style="margin-top:14px">
+    <div class="lbl-g">Що робимо ми (Hell + AI)</div>
+    <div class="g2" style="margin-top:10px">
       <div>
-        <div class="month-title" style="color:var(--darkgreen)">ВЕРЕСЕНЬ 2026</div>
-        <div class="month-sub">Система і рішення по залу</div>
-        <div class="month-goal">Мета: CRM, автоматизація, рішення щодо подальшого формату залу.</div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div class="ttxt">Сайт + бот — перша половина червня</div></div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div class="ttxt">Контент-стратегія і шаблони Instagram</div></div>
       </div>
-      <div class="month-arrow">▼</div>
+      <div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div class="ttxt">Підключення оплати LiqPay — липень</div></div>
+        <div class="task"><div class="tdot" style="background:var(--v5)"></div><div class="ttxt">CRM і аналітика — серпень</div></div>
+      </div>
     </div>
-    <div class="month-body">
-      <div class="task" style="margin-top:14px"><div class="task-dot" style="background:var(--darkgreen)"></div><div><div class="task-text">CRM підключити до бота і сайту (Supabase — безкоштовно)</div><div class="task-arg">Знаємо хто, що і коли замовляв. Персональні пропозиції</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--darkgreen)"></div><div><div class="task-text">Аналіз рентабельності: зал vs доставка — чіткі цифри</div><div class="task-arg">Дані для рішення про зал на основі фактів, не відчуттів</div></div></div>
-      <div class="task"><div class="task-dot" style="background:var(--darkgreen)"></div><div><div class="task-text">Event-формат для залу: закриті корпоративи, дегустації</div><div class="task-arg">Атріум ТЦ може стати унікальним місцем для нестандартних подій</div></div></div>
-    </div>
+    <div style="font-size:11px;color:var(--amber);margin-top:10px;font-weight:600">Від команди Vibe: доступ до акаунтів, фото страв, актуальне меню, один відповідальний за виконання.</div>
   </div>
 
-  <div class="card-green" style="margin-top:14px">
-    <div class="lbl">Що робимо ми (Hell + AI)</div>
-    <div class="task"><div class="task-dot" style="background:var(--green)"></div><div class="task-text">Контент-стратегія і шаблони для Instagram</div></div>
-    <div class="task"><div class="task-dot" style="background:var(--green)"></div><div class="task-text">Сайт ресторану з онлайн-замовленням</div></div>
-    <div class="task"><div class="task-dot" style="background:var(--green)"></div><div class="task-text">Telegram бот з автоматизацією замовлень</div></div>
-    <div class="task"><div class="task-dot" style="background:var(--green)"></div><div class="task-text">Аналітика і коригування плану щомісяця</div></div>
-    <div style="font-size:11px;color:var(--amber);margin-top:6px;font-weight:600">Від власника: доступ до акаунтів, фото страв, актуальне меню, відповідальний зі своєї команди.</div>
-  </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════ БУДУЄМО -->
+<!-- ═══════════ БУДУЄМО ═══════════ -->
 <div id="tab-build" class="section">
-  <div class="lbl">Технічний роадмап</div>
-  <div class="h1">Що будуємо разом<br>і скільки це коштує</div>
 
-  <div class="card-hot">
-    <div class="lbl">Принцип</div>
-    <div class="txt">Не нативний додаток в App Store. Замість цього — <span class="a">PWA + Telegram бот</span>. Виглядає і працює як додаток, встановлюється на екран телефону одним кліком. Дешевше, швидше, без Apple/Google approval.</div>
+  <div class="banner">
+    <div class="lbl">Технічний роадмап</div>
+    <div class="h1">Що будуємо<br>і коли саме</div>
+    <div class="txt">PWA + Telegram бот — без нативного додатку і App Store. Все запускається в червні.</div>
   </div>
 
-  <div class="stage" style="border-left:3px solid var(--red)">
-    <div style="font-size:9px;color:var(--red);font-weight:800;letter-spacing:2px;margin-bottom:3px">ЕТАП 01 · ЛИПЕНЬ 2026</div>
-    <div class="h2">Сайт + онлайн-замовлення</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Меню з фото і цінами</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Кошик і оформлення замовлення</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Кнопка «Замовити» → Telegram (поки без оплати)</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Адаптивний дизайн в кольорах Vibe</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Базова SEO-оптимізація</div>
-    <div class="divider"></div>
-    <div style="display:flex;justify-content:space-between"><span class="txt-sm">👤 Hell + AI</span><span style="font-size:11px;color:var(--red);font-weight:700">~0 грн (GitHub Pages)</span></div>
-  </div>
+  <div class="g2">
+    <div class="stage" style="border-left:3px solid var(--red)">
+      <div style="font-size:9px;color:var(--red);font-weight:800;letter-spacing:2px;margin-bottom:4px">ЗАРАЗ · ПЕРША ПОЛОВИНА ЧЕРВНЯ</div>
+      <div class="h2">Сайт + замовлення</div>
+      <div class="si"><span class="chk">✓</span>Меню з фото і цінами</div>
+      <div class="si"><span class="chk">✓</span>Кошик і оформлення замовлення</div>
+      <div class="si"><span class="chk">✓</span>Кнопка «Замовити» → Telegram бот</div>
+      <div class="si"><span class="chk">✓</span>Адаптивний дизайн, кольори Vibe</div>
+      <div class="si"><span class="chk">✓</span>Сторінка корпоративної доставки</div>
+      <div class="div"></div>
+      <div style="display:flex;justify-content:space-between"><span class="txts">👤 Hell + AI</span><span style="font-size:11px;color:var(--red);font-weight:700">0 грн (GitHub Pages)</span></div>
+    </div>
 
-  <div class="stage" style="border-left:3px solid var(--amber)">
-    <div style="font-size:9px;color:var(--amber);font-weight:800;letter-spacing:2px;margin-bottom:3px">ЕТАП 02 · СЕРПЕНЬ 2026</div>
-    <div class="h2">Telegram бот</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Автоматичне меню при /start</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Вибір страв і формування замовлення</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Сповіщення кухні / адміна</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Автоматичний збір бази клієнтів</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Нагадування і акції через бот</div>
-    <div class="divider"></div>
-    <div style="display:flex;justify-content:space-between"><span class="txt-sm">👤 Hell + AI (n8n)</span><span style="font-size:11px;color:var(--amber);font-weight:700">~500-1000 грн/міс</span></div>
-  </div>
+    <div class="stage" style="border-left:3px solid var(--red)">
+      <div style="font-size:9px;color:var(--red);font-weight:800;letter-spacing:2px;margin-bottom:4px">ЗАРАЗ · ПЕРША ПОЛОВИНА ЧЕРВНЯ</div>
+      <div class="h2">Telegram бот</div>
+      <div class="si"><span class="chk">✓</span>Автоматичне меню при /start</div>
+      <div class="si"><span class="chk">✓</span>Формування замовлення без оператора</div>
+      <div class="si"><span class="chk">✓</span>Сповіщення кухні / адміна миттєво</div>
+      <div class="si"><span class="chk">✓</span>Автозбір бази клієнтів</div>
+      <div class="si"><span class="chk">✓</span>Акції і нагадування через бот</div>
+      <div class="div"></div>
+      <div style="display:flex;justify-content:space-between"><span class="txts">👤 Hell + AI (n8n)</span><span style="font-size:11px;color:var(--red);font-weight:700">~500 грн/міс</span></div>
+    </div>
 
-  <div class="stage" style="border-left:3px solid var(--green)">
-    <div style="font-size:9px;color:var(--green);font-weight:800;letter-spacing:2px;margin-bottom:3px">ЕТАП 03 · СЕРПЕНЬ-ВЕРЕСЕНЬ</div>
-    <div class="h2">Оплата онлайн</div>
-    <div class="stage-item"><span class="stage-check">✓</span>LiqPay або Wayforpay інтеграція</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Передоплата при замовленні</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Автоматичне підтвердження</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Зниження no-show замовлень</div>
-    <div class="divider"></div>
-    <div style="display:flex;justify-content:space-between"><span class="txt-sm">👤 Hell + AI + LiqPay API</span><span style="font-size:11px;color:var(--green);font-weight:700">1.5-2.5% від транзакції</span></div>
-  </div>
+    <div class="stage" style="border-left:3px solid var(--amber)">
+      <div style="font-size:9px;color:var(--amber);font-weight:800;letter-spacing:2px;margin-bottom:4px">ЛИПЕНЬ</div>
+      <div class="h2">Оплата онлайн</div>
+      <div class="si"><span class="chk">✓</span>LiqPay або Wayforpay інтеграція</div>
+      <div class="si"><span class="chk">✓</span>Передоплата при замовленні</div>
+      <div class="si"><span class="chk">✓</span>Авто-підтвердження замовлення</div>
+      <div class="si"><span class="chk">✓</span>Зниження no-show</div>
+      <div class="div"></div>
+      <div style="display:flex;justify-content:space-between"><span class="txts">👤 Hell + API</span><span style="font-size:11px;color:var(--amber);font-weight:700">1.5–2.5% з транзакції</span></div>
+    </div>
 
-  <div class="stage" style="border-left:3px solid var(--darkgreen)">
-    <div style="font-size:9px;color:var(--darkgreen);font-weight:800;letter-spacing:2px;margin-bottom:3px">ЕТАП 04 · ВЕРЕСЕНЬ 2026</div>
-    <div class="h2">CRM + База клієнтів</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Supabase як база (безкоштовно до 50k рядків)</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Історія замовлень клієнта</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Сегментація: активні / сплячі / нові</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Персональні пропозиції автоматично</div>
-    <div class="stage-item"><span class="stage-check">✓</span>Адмін-панель для власника</div>
-    <div class="divider"></div>
-    <div style="display:flex;justify-content:space-between"><span class="txt-sm">👤 Hell + AI</span><span style="font-size:11px;color:var(--darkgreen);font-weight:700">0 грн (Supabase free)</span></div>
+    <div class="stage" style="border-left:3px solid var(--v5)">
+      <div style="font-size:9px;color:var(--v5);font-weight:800;letter-spacing:2px;margin-bottom:4px">СЕРПЕНЬ</div>
+      <div class="h2">CRM + База клієнтів</div>
+      <div class="si"><span class="chk">✓</span>Supabase (безкоштовно до 50k рядків)</div>
+      <div class="si"><span class="chk">✓</span>Повна історія кожного клієнта</div>
+      <div class="si"><span class="chk">✓</span>Авто-реактивація сплячих клієнтів</div>
+      <div class="si"><span class="chk">✓</span>Адмін-панель для власника</div>
+      <div class="div"></div>
+      <div style="display:flex;justify-content:space-between"><span class="txts">👤 Hell + AI</span><span style="font-size:11px;color:var(--v5);font-weight:700">0 грн</span></div>
+    </div>
   </div>
 
   <div class="card">
     <div class="lbl">R-Keeper інтеграція</div>
-    <div class="txt">Ресторан працює на R-Keeper. На Етапі 1-2 замовлення з сайту/боту надходять як сповіщення і вносяться вручну. Повна автоматична інтеграція — Етап 4, коли об'єм виправдовує витрати.</div>
+    <div class="txt">Етап 1-2: замовлення з сайту/боту надходять як сповіщення і вносяться вручну. Повна авто-інтеграція — коли об'єм виправдовує витрати на розробку.</div>
   </div>
+
+</div>
 </div>
 
-</div><!-- /body -->
-
-<footer>VIBE · RESCUE STRATEGY · ДНІПРО · 2026</footer>
+<footer>Vibe · Dark Kitchen Strategy · Дніпро · Червень 2026</footer>
 
 <script>
 function showTab(id, btn) {
@@ -533,11 +658,10 @@ function showTab(id, btn) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
   btn.classList.add('active');
-  btn.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+  btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-function toggleMonth(hdr) {
-  hdr.parentElement.classList.toggle('open');
-}
+function toggleM(hdr) { hdr.parentElement.classList.toggle('open'); }
 </script>
 </body>
 </html>
