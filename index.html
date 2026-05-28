@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Restaurant · Дніпро</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0A;--c1:#111;--c2:#181818;
+  --amber:#E8A030;--amber2:#C47820;
+  --green:#1B5E3B;--green2:#27AE60;
+  --cream:#F0EDE8;--gray:#666;--border:#1E1E1E;
+}
+html{background:var(--bg);scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'Inter',system-ui,sans-serif;max-width:520px;margin:0 auto;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:#0A0A0Aee;backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 18px;display:flex;align-items:center;justify-content:space-between;height:54px}
+.nav-logo{font-size:22px;font-weight:900;color:var(--amber);font-style:italic;letter-spacing:-0.5px}
+.nav-links{display:flex;gap:4px}
+.nav-links a{font-size:11px;color:var(--gray);text-decoration:none;padding:6px 10px;border-radius:20px;transition:.2s;font-weight:600;letter-spacing:.3px}
+.nav-links a:hover{color:var(--cream);background:var(--c2)}
+
+/* ── HERO ── */
+.hero{min-height:85vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 60%,#E8A03018 0%,transparent 70%);pointer-events:none}
+.hero-ivy{font-size:40px;margin-bottom:12px;opacity:.6}
+.hero-logo{font-size:72px;font-weight:900;color:var(--amber);font-style:italic;letter-spacing:-3px;line-height:1;margin-bottom:8px;text-shadow:0 0 60px #E8A03066,0 0 120px #E8A03033}
+@keyframes neonPulse{0%,100%{text-shadow:0 0 40px #E8A03066,0 0 80px #E8A03033}50%{text-shadow:0 0 80px #E8A030aa,0 0 140px #E8A03055}}
+.hero-logo{animation:neonPulse 3s ease-in-out infinite}
+.hero-tag{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gray);margin-bottom:20px}
+.hero-desc{font-size:15px;color:#BDBDBD;line-height:1.7;max-width:340px;margin-bottom:32px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn-primary{background:var(--amber);color:var(--bg);padding:14px 28px;border-radius:30px;font-size:14px;font-weight:800;text-decoration:none;letter-spacing:.5px;transition:.2s;border:none;cursor:pointer;display:inline-block}
+.btn-primary:hover{background:var(--amber2);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--cream);padding:13px 24px;border-radius:30px;font-size:13px;font-weight:700;text-decoration:none;border:1px solid var(--border);transition:.2s;display:inline-block}
+.btn-outline:hover{border-color:var(--amber);color:var(--amber)}
+.hero-hours{margin-top:28px;font-size:12px;color:var(--gray);letter-spacing:1px}
+.hero-hours span{color:var(--green2);font-weight:700}
+
+/* ── SECTION SHARED ── */
+section{padding:40px 18px}
+.sec-label{font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.sec-title{font-size:24px;font-weight:900;line-height:1.15;margin-bottom:16px}
+.sec-divider{height:1px;background:var(--border);margin:0 18px}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.about-card{background:var(--c1);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center}
+.about-icon{font-size:24px;margin-bottom:6px}
+.about-label{font-size:11px;color:var(--gray);margin-bottom:3px}
+.about-val{font-size:13px;font-weight:700;color:var(--cream)}
+
+/* ── MENU ── */
+.menu-cats{display:flex;overflow-x:auto;gap:6px;padding-bottom:12px;scrollbar-width:none;margin-bottom:16px}
+.menu-cats::-webkit-scrollbar{display:none}
+.cat-btn{padding:8px 16px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer;border:none;transition:.2s;background:var(--c2);color:var(--gray);letter-spacing:.3px}
+.cat-btn.active{background:var(--amber);color:var(--bg)}
+.cat-btn:hover:not(.active){background:#222;color:var(--cream)}
+.menu-grid{display:none}
+.menu-grid.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.menu-item{background:var(--c1);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;cursor:pointer;transition:.2s}
+.menu-item:hover{border-color:#E8A03033}
+.menu-item-info{flex:1}
+.menu-item-name{font-size:14px;font-weight:700;margin-bottom:3px}
+.menu-item-desc{font-size:11px;color:var(--gray);line-height:1.4}
+.menu-item-tags{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}
+.tag{font-size:9px;padding:2px 7px;border-radius:10px;font-weight:700}
+.tag-v{background:#1B5E3B22;color:var(--green2)}
+.tag-h{background:#E8A03022;color:var(--amber)}
+.menu-item-price{font-size:15px;font-weight:800;color:var(--amber);white-space:nowrap}
+.menu-note{font-size:11px;color:var(--gray);text-align:center;padding:12px;font-style:italic}
+
+/* ── ORDER ── */
+.order-section{background:var(--c1);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:10px}
+.order-title{font-size:16px;font-weight:800;margin-bottom:12px}
+.order-channel{display:flex;align-items:center;gap:12px;padding:12px;background:var(--c2);border-radius:10px;margin-bottom:8px;text-decoration:none;transition:.2s;border:1px solid transparent}
+.order-channel:hover{border-color:var(--amber);background:#1A1A1A}
+.order-channel-icon{font-size:24px;flex-shrink:0}
+.order-channel-text{flex:1}
+.order-channel-name{font-size:13px;font-weight:700;color:var(--cream);margin-bottom:2px}
+.order-channel-sub{font-size:11px;color:var(--gray)}
+.order-channel-arr{color:var(--amber);font-size:16px}
+.order-channel.disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+.coming-soon{font-size:9px;background:var(--border);color:var(--gray);padding:3px 8px;border-radius:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+
+/* ── DELIVERY INFO ── */
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.info-row:last-child{border-bottom:none}
+.info-label{font-size:12px;color:var(--gray)}
+.info-val{font-size:13px;font-weight:700}
+
+/* ── LOYALTY ── */
+.loyalty-card{background:linear-gradient(135deg,#1B5E3B22,#E8A03011);border:1px solid var(--green);border-radius:16px;padding:20px;text-align:center}
+.loyalty-icon{font-size:36px;margin-bottom:8px}
+.loyalty-title{font-size:18px;font-weight:800;margin-bottom:6px}
+.loyalty-desc{font-size:13px;color:#BDBDBD;line-height:1.6;margin-bottom:16px}
+
+/* ── LOCATION ── */
+.location-card{background:var(--c1);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px}
+.map-placeholder{background:var(--c2);border-radius:10px;height:140px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;border:1px solid var(--border);text-decoration:none}
+.map-pin{font-size:32px}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:30px 18px;text-align:center}
+.footer-logo{font-size:28px;font-weight:900;color:var(--amber);font-style:italic;margin-bottom:6px}
+.footer-links{display:flex;justify-content:center;gap:16px;margin:14px 0;flex-wrap:wrap}
+.footer-links a{font-size:12px;color:var(--gray);text-decoration:none;transition:.2s}
+.footer-links a:hover{color:var(--amber)}
+.footer-copy{font-size:10px;color:#333;letter-spacing:2px;text-transform:uppercase;margin-top:14px}
+
+/* ── SCROLL ANIMATION ── */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Vibe</div>
+  <div class="nav-links">
+    <a href="#menu">Меню</a>
+    <a href="#order">Замовити</a>
+    <a href="#location">Де ми</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ivy">🌿</div>
+  <div class="hero-logo">Vibe</div>
+  <div class="hero-tag">Ресторан · Дніпро</div>
+  <div class="hero-desc">Смачна незвична їжа, тепла атмосфера і доставка яка приїздить вчасно. Замовляй звідки зручно.</div>
+  <div class="hero-btns">
+    <a href="https://t.me/Restaurant_Vibe" class="btn-primary" target="_blank">🛵 Замовити доставку</a>
+    <a href="#menu" class="btn-outline">Переглянути меню</a>
+  </div>
+  <div class="hero-hours">Відчинено <span>9:00 – 21:00</span> · Щодня</div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- ABOUT -->
+<section id="about" class="fade-in">
+  <div class="sec-label">Про нас</div>
+  <div class="sec-title">Місце де<br>їжа — це враження</div>
+  <p style="font-size:14px;color:#BDBDBD;line-height:1.7;margin-bottom:16px">Vibe — це ресторан в серці Дніпра з незвичайною подачею, авторськими стравами та атмосферою яка залишається з тобою. Є зал, є доставка — обирай як зручно.</p>
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="about-icon">🕘</div>
+      <div class="about-label">Щодня</div>
+      <div class="about-val">9:00 – 21:00</div>
+    </div>
+    <div class="about-card">
+      <div class="about-icon">☕</div>
+      <div class="about-label">Бранч</div>
+      <div class="about-val">11:00 – 16:00</div>
+    </div>
+    <div class="about-card">
+      <div class="about-icon">🌱</div>
+      <div class="about-label">Є</div>
+      <div class="about-val">Веган-меню</div>
+    </div>
+    <div class="about-card">
+      <div class="about-icon">👶</div>
+      <div class="about-label">Є</div>
+      <div class="about-val">Дитяче меню</div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- MENU -->
+<section id="menu" class="fade-in">
+  <div class="sec-label">Меню</div>
+  <div class="sec-title">Що готуємо</div>
+
+  <div class="menu-cats">
+    <button class="cat-btn active" onclick="showCat('brunch',this)">☀️ Бранч</button>
+    <button class="cat-btn" onclick="showCat('main',this)">🍽 Основні</button>
+    <button class="cat-btn" onclick="showCat('salads',this)">🥗 Салати</button>
+    <button class="cat-btn" onclick="showCat('soups',this)">🍲 Супи</button>
+    <button class="cat-btn" onclick="showCat('desserts',this)">🍰 Десерти</button>
+    <button class="cat-btn" onclick="showCat('drinks',this)">☕ Напої</button>
+  </div>
+
+  <!-- БРАНЧ -->
+  <div id="cat-brunch" class="menu-grid active">
+    <div class="menu-note">Пн–Пт · 11:00 – 16:00</div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Яйця Бенедикт з лососем</div>
+        <div class="menu-item-desc">Пашот, голландський соус, бріош, шпинат</div>
+        <div class="menu-item-tags"><span class="tag tag-h">Хіт</span></div>
+      </div>
+      <div class="menu-item-price">280₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Панкейки з ягодами</div>
+        <div class="menu-item-desc">Американські панкейки, свіжі ягоди, кленовий сироп, збиті вершки</div>
+        <div class="menu-item-tags"><span class="tag tag-v">Вег</span></div>
+      </div>
+      <div class="menu-item-price">220₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Авокадо-тост з яйцем</div>
+        <div class="menu-item-desc">Соурдоу, крем-сир, авокадо, яйце пашот, мікрогрін</div>
+        <div class="menu-item-tags"><span class="tag tag-v">Вег</span><span class="tag tag-h">Хіт</span></div>
+      </div>
+      <div class="menu-item-price">240₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Шакшука</div>
+        <div class="menu-item-desc">Яйця в томатному соусі з перцем та спеціями, хрустка піта</div>
+        <div class="menu-item-tags"><span class="tag tag-v">Вег</span></div>
+      </div>
+      <div class="menu-item-price">210₴</div>
+    </div>
+  </div>
+
+  <!-- ОСНОВНІ -->
+  <div id="cat-main" class="menu-grid">
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Пенне з куркою і трюфелем</div>
+        <div class="menu-item-desc">Паста al dente, крем-соус, куряче філе, трюфельна олія, пармезан</div>
+        <div class="menu-item-tags"><span class="tag tag-h">Хіт</span></div>
+      </div>
+      <div class="menu-item-price">320₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Лосось на грилі</div>
+        <div class="menu-item-desc">Філе лосося, овочі гриль, соус цитрусовий, картопля</div>
+      </div>
+      <div class="menu-item-price">390₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Ризотто з грибами</div>
+        <div class="menu-item-desc">Арборіо, мікс грибів, пармезан, трюфельна олія</div>
+        <div class="menu-item-tags"><span class="tag tag-v">Вег</span></div>
+      </div>
+      <div class="menu-item-price">280₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Стейк із телятини</div>
+        <div class="menu-item-desc">Medium rare, соус демі-гляс, пюре, сезонні овочі</div>
+      </div>
+      <div class="menu-item-price">420₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Курча по-азійськи</div>
+        <div class="menu-item-desc">Маринад теріякі, нудлз, овочі wok, кунжут</div>
+        <div class="menu-item-tags"><span class="tag tag-h">Хіт</span></div>
+      </div>
+      <div class="menu-item-price">295₴</div>
+    </div>
+  </div>
+
+  <!-- САЛАТИ -->
+  <div id="cat-salads" class="menu-grid">
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Цезар з куркою</div>
+        <div class="menu-item-desc">Романо, грінки, пармезан, соус цезар, куряче філе гриль</div>
+        <div class="menu-item-tags"><span class="tag tag-h">Хіт</span></div>
+      </div>
+      <div class="menu-item-price">230₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Грецький</div>
+        <div class="menu-item-desc">Томати, огірок, оливки, фета, орегано, оливкова олія</div>
+        <div class="menu-item-tags"><span class="tag tag-v">Вег</span></div>
+      </div>
+      <div class="menu-item-price">195₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Нісуаз</div>
+        <div class="menu-item-desc">Тунець, яйце, зелена квасоля, томати, оливки, анчоус</div>
+      </div>
+      <div class="menu-item-price">260₴</div>
+    </div>
+  </div>
+
+  <!-- СУПИ -->
+  <div id="cat-soups" class="menu-grid">
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Том Ям</div>
+        <div class="menu-item-desc">Класичний тайський суп, кокосове молоко, креветки, гриби</div>
+        <div class="menu-item-tags"><span class="tag tag-h">Хіт</span></div>
+      </div>
+      <div class="menu-item-price">240₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Крем-суп з броколі</div>
+        <div class="menu-item-desc">Ніжна текстура, вершки, пармезан, кедрові горіхи</div>
+        <div class="menu-item-tags"><span class="tag tag-v">Вег</span></div>
+      </div>
+      <div class="menu-item-price">185₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Французький цибулевий</div>
+        <div class="menu-item-desc">Карамелізована цибуля, бульйон, грінка, грюйєр</div>
+      </div>
+      <div class="menu-item-price">210₴</div>
+    </div>
+  </div>
+
+  <!-- ДЕСЕРТИ -->
+  <div id="cat-desserts" class="menu-grid">
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Тірамісу</div>
+        <div class="menu-item-desc">Класичний рецепт, маскарпоне, савоярді, еспресо</div>
+        <div class="menu-item-tags"><span class="tag tag-v">Вег</span><span class="tag tag-h">Хіт</span></div>
+      </div>
+      <div class="menu-item-price">155₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Чізкейк Нью-Йорк</div>
+        <div class="menu-item-desc">Вершковий сир, ягідний кулі, пісочна основа</div>
+        <div class="menu-item-tags"><span class="tag tag-v">Вег</span></div>
+      </div>
+      <div class="menu-item-price">165₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Брауні з морозивом</div>
+        <div class="menu-item-desc">Теплий шоколадний брауні, кулька ванільного морозива</div>
+        <div class="menu-item-tags"><span class="tag tag-v">Вег</span></div>
+      </div>
+      <div class="menu-item-price">175₴</div>
+    </div>
+  </div>
+
+  <!-- НАПОЇ -->
+  <div id="cat-drinks" class="menu-grid">
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Флет Вайт</div>
+        <div class="menu-item-desc">Double espresso, молочна піна</div>
+      </div>
+      <div class="menu-item-price">75₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Матча Лате</div>
+        <div class="menu-item-desc">Церемоніальна матча, молоко на вибір</div>
+        <div class="menu-item-tags"><span class="tag tag-v">Вег</span></div>
+      </div>
+      <div class="menu-item-price">90₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Фреш апельсин</div>
+        <div class="menu-item-desc">Свіжовичавлений, 250 мл</div>
+        <div class="menu-item-tags"><span class="tag tag-v">Вег</span></div>
+      </div>
+      <div class="menu-item-price">85₴</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-info">
+        <div class="menu-item-name">Лимонад манго-базилік</div>
+        <div class="menu-item-desc">Авторський, 400 мл</div>
+        <div class="menu-item-tags"><span class="tag tag-h">Хіт</span></div>
+      </div>
+      <div class="menu-item-price">95₴</div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center">
+    <a href="https://expz.menu/451d398d-423a-4640-bb31-17aaec7984de" target="_blank" class="btn-outline" style="font-size:12px">Повне меню →</a>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- ORDER -->
+<section id="order" class="fade-in">
+  <div class="sec-label">Замовлення</div>
+  <div class="sec-title">Обирай зручний<br>спосіб</div>
+
+  <div class="order-section">
+    <div class="order-title">🛵 Доставка</div>
+
+    <a href="https://t.me/Restaurant_Vibe" target="_blank" class="order-channel">
+      <div class="order-channel-icon">✈️</div>
+      <div class="order-channel-text">
+        <div class="order-channel-name">Telegram</div>
+        <div class="order-channel-sub">Напиши замовлення — привеземо</div>
+      </div>
+      <div class="order-channel-arr">→</div>
+    </a>
+
+    <a href="https://www.instagram.com/vibe.rest" target="_blank" class="order-channel">
+      <div class="order-channel-icon">📸</div>
+      <div class="order-channel-text">
+        <div class="order-channel-name">Instagram</div>
+        <div class="order-channel-sub">DM в @vibe.rest</div>
+      </div>
+      <div class="order-channel-arr">→</div>
+    </a>
+
+    <div class="order-channel disabled">
+      <div class="order-channel-icon">🌐</div>
+      <div class="order-channel-text">
+        <div class="order-channel-name">Онлайн на сайті</div>
+        <div class="order-channel-sub">Кошик, оплата, відстеження</div>
+      </div>
+      <span class="coming-soon">Скоро</span>
+    </div>
+  </div>
+
+  <div class="order-section">
+    <div class="order-title">📱 Агрегатори</div>
+
+    <a href="https://glovoapp.com" target="_blank" class="order-channel">
+      <div class="order-channel-icon">🟡</div>
+      <div class="order-channel-text">
+        <div class="order-channel-name">Glovo</div>
+        <div class="order-channel-sub">97% · 63 відгуки · 35-50 хв</div>
+      </div>
+      <div class="order-channel-arr">→</div>
+    </a>
+
+    <a href="https://food.bolt.eu" target="_blank" class="order-channel">
+      <div class="order-channel-icon">🟢</div>
+      <div class="order-channel-text">
+        <div class="order-channel-name">Bolt Food</div>
+        <div class="order-channel-sub">Доступний у Дніпрі</div>
+      </div>
+      <div class="order-channel-arr">→</div>
+    </a>
+  </div>
+
+  <div class="order-section">
+    <div class="order-title">📞 Або зателефонуй</div>
+    <a href="tel:+380673792629" class="order-channel" style="text-decoration:none">
+      <div class="order-channel-icon">📞</div>
+      <div class="order-channel-text">
+        <div class="order-channel-name">+38 (067) 379-26-29</div>
+        <div class="order-channel-sub">Бронювання столиків та замовлення</div>
+      </div>
+      <div class="order-channel-arr">→</div>
+    </a>
+  </div>
+
+  <!-- Delivery info -->
+  <div class="order-section">
+    <div class="order-title">ℹ️ Умови доставки</div>
+    <div class="info-row"><span class="info-label">Мінімальне замовлення</span><span class="info-val" style="color:var(--amber)">399 ₴</span></div>
+    <div class="info-row"><span class="info-label">Безкоштовна доставка</span><span class="info-val" style="color:var(--green2)">від 599 ₴</span></div>
+    <div class="info-row"><span class="info-label">Час доставки</span><span class="info-val">35-50 хв</span></div>
+    <div class="info-row"><span class="info-label">Зона</span><span class="info-val">Центр Дніпра</span></div>
+    <div class="info-row"><span class="info-label">Корпоративне замовлення</span><span class="info-val" style="color:var(--amber)">Telegram →</span></div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- LOYALTY -->
+<section class="fade-in">
+  <div class="loyalty-card">
+    <div class="loyalty-icon">🎁</div>
+    <div class="loyalty-title">Програма лояльності</div>
+    <div class="loyalty-desc">Замовляй — накопичуй бонуси — отримуй смаколики. Приєднуйся безкоштовно.</div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSedUf8TMpMcr7IFPlq2bxafV_72MRvZRQ_48752wfHFp73LcQ/viewform" target="_blank" class="btn-primary" style="font-size:13px">Приєднатись →</a>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- LOCATION -->
+<section id="location" class="fade-in">
+  <div class="sec-label">Де ми</div>
+  <div class="sec-title">Знайти нас</div>
+
+  <div class="location-card">
+    <a href="https://maps.google.com/?q=Vibe+Restaurant+Dnipro+Most-City" target="_blank" class="map-placeholder">
+      <div style="text-align:center">
+        <div class="map-pin">📍</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:6px">Відкрити в Google Maps</div>
+      </div>
+    </a>
+    <div class="info-row"><span class="info-label">Адреса</span><span class="info-val">вул. Єлизавети II, 2</span></div>
+    <div class="info-row"><span class="info-label">Де саме</span><span class="info-val">ТРК Мост-Сіті, 1-й пов.</span></div>
+    <div class="info-row"><span class="info-label">Орієнтир</span><span class="info-val">Атріум, напроти фонтану</span></div>
+    <div class="info-row"><span class="info-label">Графік</span><span class="info-val" style="color:var(--green2)">9:00 – 21:00 · Щодня</span></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Vibe</div>
+  <div style="font-size:11px;color:var(--gray);margin-bottom:12px;letter-spacing:1px">Ресторан · Дніпро</div>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/vibe.rest" target="_blank">Instagram</a>
+    <a href="https://t.me/Restaurant_Vibe" target="_blank">Telegram</a>
+    <a href="tel:+380673792629">+38 067 379-26-29</a>
+    <a href="https://linktr.ee/vibe.rest" target="_blank">Linktree</a>
+  </div>
+  <div class="footer-copy">© 2026 Vibe Restaurant · Дніпро</div>
+</footer>
+
+<script>
+// Tab switching for menu
+function showCat(id, btn) {
+  document.querySelectorAll('.menu-grid').forEach(g => g.classList.remove('active'));
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('cat-' + id).classList.add('active');
+  btn.classList.add('active');
+  btn.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+}
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
